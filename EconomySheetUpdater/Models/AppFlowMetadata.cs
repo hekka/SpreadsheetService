@@ -15,7 +15,7 @@ namespace Google.Apis.Sample.MVC4
                         {
                             ClientId = WebConfigurationManager.AppSettings["ClientId"] ?? "notfound",
                             ClientSecret = WebConfigurationManager.AppSettings["ClientSecret"] ?? "notfound" 
-                        },
+                        }, 
                     Scopes = new[] { "https://spreadsheets.google.com/feeds", "https://docs.google.com/feeds" },
                     
                 });
