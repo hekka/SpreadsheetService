@@ -25,7 +25,7 @@ namespace EconomySheetUpdater.Controllers
             }
             else
             {
-                return new RedirectResult("urn:ietf:wg:oauth:2.0:oob");
+                return new RedirectResult("urn:ietf:wg:oauth:2.0:oob");//return new RedirectResult(result.RedirectURI);
             }
         }
     }

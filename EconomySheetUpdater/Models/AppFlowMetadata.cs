@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Configuration;
+using System.Web.Mvc;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Mvc;
@@ -12,8 +13,8 @@ namespace Google.Apis.Sample.MVC4
                 {
                     ClientSecrets = new ClientSecrets
                         {
-                            ClientId = "711463205843-84adg69j7ln2q9lmnkv5302ph7gpsmmq.apps.googleusercontent.com",
-                            ClientSecret = "vX5g25ZfClkWWsNDXETsRl8H"
+                            ClientId = WebConfigurationManager.AppSettings["ClientId"] ?? "notfound",
+                            ClientSecret = WebConfigurationManager.AppSettings["ClientSecret"] ?? "notfound"
                         },
                     Scopes = new[] { "https://spreadsheets.google.com/feeds", "https://docs.google.com/feeds" },
                     
