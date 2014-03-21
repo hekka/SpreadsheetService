@@ -1,8 +1,11 @@
-﻿using System.Web.Configuration;
+﻿using System;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Mvc;
+using Google.Apis.Drive.v2;
+using Google.Apis.Util.Store;
 
 namespace Google.Apis.Sample.MVC4
 {
@@ -15,8 +18,9 @@ namespace Google.Apis.Sample.MVC4
                         {
                             ClientId = WebConfigurationManager.AppSettings["ClientId"] ?? "notfound",
                             ClientSecret = WebConfigurationManager.AppSettings["ClientSecret"] ?? "notfound" 
-                        }, 
-                    Scopes = new[] { "https://spreadsheets.google.com/feeds", "https://docs.google.com/feeds" },
+                        },
+                    Scopes = new[] { DriveService.Scope.Drive, "https://spreadsheets.google.com/feeds"," https://docs.google.com/feeds" },
+                    DataStore = new FileDataStore("Drive.Api.Auth.Store")
                     
                 });
 
@@ -28,7 +32,13 @@ namespace Google.Apis.Sample.MVC4
             // You can read more about the protocol in the following link:
             // https://developers.google.com/accounts/docs/OAuth2Login.
 
-            return "kirkegata37";
+            var user = controller.Session["user"];
+            if (user == null)
+            {
+                user = Guid.NewGuid();
+                controller.Session["user"] = user;
+            }
+            return user.ToString();
         }
 
         public override IAuthorizationCodeFlow Flow

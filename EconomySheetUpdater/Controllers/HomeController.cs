@@ -17,15 +17,17 @@ namespace EconomySheetUpdater.Controllers
 
             if (result.Credential != null)
             {
-                SpreadsheetsService service = new SpreadsheetsService("MySpreadsheetIntegration-v1");
+                SpreadsheetsService service = new SpreadsheetsService("Kirkegata37SSS");
+                var query = new SpreadsheetQuery();
+                var hora = service.Query(query);
+                //ViewBag.feed = 
 
-                // YOUR CODE SHOULD BE HERE..
-                // SAMPLE CODE:
+                
                 return View();
             }
             else
             {
-                return new RedirectResult("urn:ietf:wg:oauth:2.0:oob");
+                return new RedirectResult(result.RedirectUri);
             }
         }
     }

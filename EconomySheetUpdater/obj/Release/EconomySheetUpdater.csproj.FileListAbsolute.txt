@@ -34,7 +34,6 @@ C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Zlib.Portable.dll
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.pdb
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.Auth.pdb
-C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.Auth.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.Auth.Mvc4.pdb
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.Auth.Mvc4.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\Google.Apis.Auth.PlatformServices.pdb
@@ -54,7 +53,6 @@ C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Net.Http.Primitives.
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\EntityFramework.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Web.Http.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Web.Http.WebHost.xml
-C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Web.Mvc.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Web.Razor.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Web.WebPages.xml
 C:\vsdev\EconomySheetUpdater\EconomySheetUpdater\bin\System.Web.WebPages.Deployment.xml

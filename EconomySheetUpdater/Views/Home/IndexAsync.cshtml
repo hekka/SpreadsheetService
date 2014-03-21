@@ -1,7 +1,15 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "My spreadsheets";
+    <ul>
+        @foreach (var entry in ViewBag.feed)
+        {
+            <li>entry.Title.Text</li>
+        }
+
+    </ul>
+    
 }
 
 <h2>title</h2>
