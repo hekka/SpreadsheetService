@@ -21,9 +21,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#" title="change in _bootstrapLayout.basic.cshtml">EasyExcelUpdate</a>
+                    <a class="brand" href="#" title="change in _bootstrapLayout.basic.cshtml">Application Name</a>
                     <div class="nav-collapse collapse">
-                          @Html.Navigation()
+                        <ul class="nav">
+                            @Html.Navigation()
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -34,7 +36,7 @@
             @RenderBody()   
             <hr>
             <footer>
-                <p>&copy; Troll Solutions @System.DateTime.Now.ToString("yyyy")</p>
+                <p>&copy; Company @System.DateTime.Now.ToString("yyyy")</p>
             </footer> 
         </div>
          @Scripts.Render("~/js")
