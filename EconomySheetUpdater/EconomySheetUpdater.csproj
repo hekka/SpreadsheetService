@@ -308,7 +308,9 @@
     <Content Include="Views\Shared\Details.cshtml" />
     <Content Include="Views\Shared\Create.cshtml" />
     <Content Include="Views\Shared\_validationSummary.cshtml" />
-    <Content Include="Views\Shared\_BootstrapLayout.narrow.cshtml" />
+    <Content Include="Views\Shared\_BootstrapLayout.narrow.cshtml">
+      <BrowseToURL>~/Views/Shared/_BootstrapLayout.narrow.cshtml</BrowseToURL>
+    </Content>
     <Content Include="Views\Shared\_BootstrapLayout.empty.cshtml" />
     <Content Include="Views\Shared\_BootstrapLayout.basic.cshtml" />
     <Content Include="Views\Shared\_alerts.cshtml" />
