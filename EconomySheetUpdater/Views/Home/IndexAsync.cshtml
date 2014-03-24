@@ -1,16 +1,19 @@
-﻿@model dynamic
+﻿@using Google.GData.Spreadsheets
+@model EconomySheetUpdater.Models.SpreadSheetUpdateViewModel
+
 
 @{
-    ViewBag.Title = "My spreadsheets";
-    <ul>
-        @foreach (var entry in ViewBag.feed)
+    <h2>@Model.Entry.Title.Text</h2>
+    <select>
+        @foreach (WorksheetEntry ws in @Model.Entry.Worksheets.Entries)
         {
-            <li>entry.Title.Text</li>
+            <option>@ws.Title.Text</option>
         }
-
-    </ul>
-    
+    </select>
 }
 
-<h2>title</h2>
+
+    
+
+
 
