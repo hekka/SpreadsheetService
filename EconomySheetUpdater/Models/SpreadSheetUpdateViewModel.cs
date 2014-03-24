@@ -8,6 +8,6 @@ namespace EconomySheetUpdater.Models
         public string Name { get; set; }
         public string ExpenditureType { get; set; }
         public string Amount { get; set; }
-    }
 
+    }
 }

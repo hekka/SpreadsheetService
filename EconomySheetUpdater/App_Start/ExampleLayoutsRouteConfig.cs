@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -14,7 +15,7 @@ namespace BootstrapMvcSample
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapNavigationRoute<HomeController>("Automatic Scaffolding", c => c.Index());
+            routes.MapNavigationRoute<HomeController>("Start", c => c.Index());
 
             routes.MapNavigationRoute<ExampleLayoutsController>("Example Layouts", c => c.Starter())
                   .AddChildRoute<ExampleLayoutsController>("Marketing", c => c.Marketing())
