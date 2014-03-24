@@ -29,7 +29,7 @@ namespace EconomySheetUpdater.Controllers
                 {
                     var model = new SpreadSheetUpdateViewModel
                         {
-                            Entry = getSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"])
+                            Entry = getSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"]),
                         };
                     return View(model);
                 }
@@ -44,8 +44,9 @@ namespace EconomySheetUpdater.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = new SpreadSheetUpdateViewModel();
-            return View("Index", model);
+            //var model = new SpreadSheetUpdateViewModel();
+            return View();
+            
         }
 
         [HttpPost]
