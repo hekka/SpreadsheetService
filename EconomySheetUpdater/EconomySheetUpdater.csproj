@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Models\AppFlowMetadata.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
+    <Compile Include="Models\SpreadSheetHelper.cs" />
     <Compile Include="Models\SpreadSheetUpdateViewModel.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
     <Compile Include="NavigationRoutes\NamedRoute.cs" />
