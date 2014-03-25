@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using EconomySheetUpdater.Models;
 using Google.Apis.Auth.OAuth2.Mvc;
 using Google.Apis.Sample.MVC4;
-using Google.GData.Client;
-using Google.GData.Spreadsheets;
 
 namespace EconomySheetUpdater.Controllers
 {
@@ -23,17 +16,14 @@ namespace EconomySheetUpdater.Controllers
 
             if (result.Credential != null)
             {
-                if (SpreadSheetHelper.InitService(result.Credential.Token.AccessToken))
-                {
-                    var model = SpreadSheetUpdateViewModel.GetModel();
-                    return View(model);
-                }
-                return View();
+                SpreadSheetHelper.AccessToken = result.Credential.Token.AccessToken;
+
+                var model = SpreadSheetUpdateViewModel.GetModel();
+                return View(model);
             }
-            else
-            {
-                return new RedirectResult(result.RedirectUri);
-            }
+ 
+            return new RedirectResult(result.RedirectUri);
+            
         }
 
         [HttpPost]
@@ -41,8 +31,8 @@ namespace EconomySheetUpdater.Controllers
         {
             if (ModelState.IsValid)
             {
-                SpreadSheetHelper.UpdateSpeadSheet(model.SelectedUser, model.SelectedWorksheetId,
-                    model.SelectedExpenditureType, model.SelectedAmount);
+                SpreadSheetHelper.UpdateSpreadSheet(model.SelectedUser, model.SelectedWorksheetId,
+                                                    model.SelectedExpenditureType, model.SelectedAmount);
             }
             return View(SpreadSheetUpdateViewModel.GetModel());
         }
