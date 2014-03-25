@@ -1,27 +1,33 @@
-﻿@using Google.GData.Spreadsheets
+﻿@using System.Web.Mvc.Html
+@using Microsoft.Web.Mvc
 @model EconomySheetUpdater.Models.SpreadSheetUpdateViewModel
 
 
 @{
-    <h2>@Model.Entry.Title.Text</h2>
-  
-        foreach (WorksheetEntry ws in Model.Entry.Worksheets.Entries)
-        {
-            @*<div>@Html.ActionLink(ws.Title.Text, "Worksheet", "Worksheet") </div>*@
-        <div>@Html.ActionLink(linkText:ws.Title.Text, 
-                                actionName:"Worksheet", 
-                                controllerName:"Worksheet", 
-                                routeValues: new
-                                    {
-                                        //id = ws.Service.Query()//ws.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null).HRef.ToString()
-                                    }, 
-                                    htmlAttributes:null) </div>
-        }
-   
+    <h2>@Model.SpreadsheetTitle</h2>
+
+    using (Html.BeginForm("IndexAsync", "Home"))
+    {
+    @Html.DropDownListFor(ws => ws.SelectedUser, Model.Users, "Select user")
+    <br />
+    
+    @Html.DropDownListFor(ws => ws.SelectedWorksheetId, Model.Worksheets, "Select month")
+    <br />
+    
+    @Html.DropDownListFor(ws => ws.SelectedExpenditureType, Model.ExpenditureTypes, "Select expenditure type")
+    <br />
+    
+    <label for="amountInput">Select your amount</label>
+    @Html.TextBoxFor(m => m.SelectedAmount, new {@id = "amountInput"})
+    <br/>
+    <br/>
+    
+    @Html.SubmitButton("Submit", "Submit", new { @class = "btn-default  btn" })
+    }
 }
 
 
-    
+
 
 
 
