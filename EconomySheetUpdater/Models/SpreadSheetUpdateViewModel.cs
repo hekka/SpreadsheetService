@@ -24,6 +24,8 @@ namespace EconomySheetUpdater.Models
         public IEnumerable<SelectListItem> Worksheets { get; set; }
         public string SelectedWorksheetId { get; set; }
 
+        public string ErrorMessage { get; set; }
+
         public static SpreadSheetUpdateViewModel GetModel()
         {
             var spreadSheet = SpreadSheetHelper.GetSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"]);
@@ -90,5 +92,11 @@ namespace EconomySheetUpdater.Models
         }
 
 
+        public static SpreadSheetUpdateViewModel GetErrorModel()
+        {
+            var model = GetModel();
+            model.ErrorMessage = "wtf u done??";
+            return model;
+        }
     }
 }

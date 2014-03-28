@@ -11,6 +11,8 @@
         @RenderSection("head", required: false)
         @Html.Partial("_html5shiv")
         @* favicons and touch icons go here *@
+        @Scripts.Render("~/js")
+        @RenderSection("Scripts", required: false)
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -39,8 +41,7 @@
                 <p>&copy; Troll Solutions @System.DateTime.Now.ToString("yyyy")</p>
             </footer> 
         </div>
-         @Scripts.Render("~/js")
-         @RenderSection("Scripts", required: false)
+
     </body>
 </html>
 

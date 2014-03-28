@@ -19,6 +19,7 @@ namespace EconomySheetUpdater.Controllers
                 SpreadSheetHelper.AccessToken = result.Credential.Token.AccessToken;
 
                 var model = SpreadSheetUpdateViewModel.GetModel();
+                ViewBag.Title = "Pro Solutions";
                 return View(model);
             }
  
@@ -29,18 +30,23 @@ namespace EconomySheetUpdater.Controllers
         [HttpPost]
         public ActionResult IndexAsync(SpreadSheetUpdateViewModel model)
         {
+            
             if (ModelState.IsValid)
             {
                 SpreadSheetHelper.UpdateSpreadSheet(model.SelectedUser, model.SelectedWorksheetId,
                                                     model.SelectedExpenditureType, model.SelectedAmount);
+                ModelState.Clear();
+                ViewBag.Title = "Success";
+                return View(SpreadSheetUpdateViewModel.GetModel());
             }
-            return View(SpreadSheetUpdateViewModel.GetModel());
+            ViewBag.Title = "Failed";
+            return View(SpreadSheetUpdateViewModel.GetErrorModel());
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return null;
+            return View();
         }
     }
 }

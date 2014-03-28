@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Web.Configuration;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
@@ -59,7 +60,7 @@ namespace EconomySheetUpdater.Models
 
         #endregion
 
-        internal static void UpdateSpreadSheet(string user, string id, string type, string amount)
+        internal static bool UpdateSpreadSheet(string user, string id, string type, string amount)
         {
             var ss = GetSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"]);
             var index = -1;
@@ -72,6 +73,7 @@ namespace EconomySheetUpdater.Models
             catch (Exception e)
             {
                 Debug.WriteLine("Conversion Error! " + e.Message);
+                return false;
             }
             var ws = ss.Worksheets.Entries[index] as WorksheetEntry;
             var listFeedLink = ws.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
@@ -82,7 +84,7 @@ namespace EconomySheetUpdater.Models
                 if (String.Equals(r.Elements[0].Value, type, StringComparison.CurrentCultureIgnoreCase))
                     row = r;
             }
-            if (row == null) return;
+            if (row == null) return false;
 
             foreach (ListEntry.Custom element in row.Elements)
             {
@@ -90,11 +92,20 @@ namespace EconomySheetUpdater.Models
                 {
                     var oldValue = element.Value;
                     element.Value = "="+oldValue +"+"+ spent;
-
                 }
             }
+            try
+            {
             row.Update();
             SetDeltaCell(ws, type);
+
+            }
+            catch (WebException e)
+            {
+                Debug.WriteLine("Probably not sufficent accessrights... \n"+e.Message);
+                return false;
+            }
+            return true;
         }
 
         public static SpreadsheetEntry GetSpreadSheet(string uri)
