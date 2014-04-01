@@ -15,8 +15,8 @@ namespace EconomySheetUpdater.Controllers
                                    AuthorizeAsync(cancellationToken);
 
             if (result.Credential != null)
-            {
-                SpreadSheetHelper.AccessToken = result.Credential.Token.AccessToken;
+            { SpreadSheetHelper.AccessToken = result.Credential.Token.AccessToken;
+
 
                 var model = SpreadSheetUpdateViewModel.GetModel();
                 ViewBag.Title = "Pro Solutions";
@@ -31,10 +31,11 @@ namespace EconomySheetUpdater.Controllers
         public ActionResult IndexAsync(SpreadSheetUpdateViewModel model)
         {
             
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid
+                &&
                 SpreadSheetHelper.UpdateSpreadSheet(model.SelectedUser, model.SelectedWorksheetId,
-                                                    model.SelectedExpenditureType, model.SelectedAmount);
+                                                         model.SelectedExpenditureType, model.SelectedAmount))
+            {
                 ModelState.Clear();
                 ViewBag.Title = "Success";
                 return View(SpreadSheetUpdateViewModel.GetModel());

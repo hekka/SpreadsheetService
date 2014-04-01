@@ -92,6 +92,7 @@ namespace EconomySheetUpdater.Models
                 {
                     var oldValue = element.Value;
                     element.Value = "="+oldValue +"+"+ spent;
+
                 }
             }
             try
