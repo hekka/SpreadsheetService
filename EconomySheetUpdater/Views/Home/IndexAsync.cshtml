@@ -1,16 +1,33 @@
-﻿@model dynamic
+﻿@using System.Web.Mvc.Html
+@using Microsoft.Web.Mvc
+@model EconomySheetUpdater.Models.SpreadSheetUpdateViewModel
+
 
 @{
-    ViewBag.Title = "My spreadsheets";
-    <ul>
-        @foreach (var entry in ViewBag.feed)
-        {
-            <li>entry.Title.Text</li>
-        }
+    <h2>@Model.SpreadsheetTitle</h2>
 
-    </ul>
+    using (Html.BeginForm("IndexAsync", "Home"))
+    {
+    @Html.DropDownListFor(ws => ws.SelectedUser, Model.Users, "Select user")
+    <br />
     
+    @Html.DropDownListFor(ws => ws.SelectedWorksheetId, Model.Worksheets, "Select month")
+    <br />
+    
+    @Html.DropDownListFor(ws => ws.SelectedExpenditureType, Model.ExpenditureTypes, "Select expenditure type")
+    <br />
+    
+    <label for="amountInput">Select your amount</label>
+    @Html.TextBoxFor(m => m.SelectedAmount, new {@id = "amountInput"})
+    <br/>
+    <br/>
+    
+    @Html.SubmitButton("Submit", "Submit", new { @class = "btn-default  btn" })
+    }
 }
 
-<h2>title</h2>
+
+
+
+
 
