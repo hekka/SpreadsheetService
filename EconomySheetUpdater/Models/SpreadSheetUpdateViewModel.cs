@@ -24,15 +24,17 @@ namespace EconomySheetUpdater.Models
         public IEnumerable<SelectListItem> Worksheets { get; set; }
         public string SelectedWorksheetId { get; set; }
 
+        public string ErrorMessage { get; set; }
+
         public static SpreadSheetUpdateViewModel GetModel()
         {
-            var spreadSheet = GetSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"]);
+            var spreadSheet = SpreadSheetHelper.GetSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"]);
             var worksheets = GetWorkSheets(spreadSheet);
 
             var tempWorkSheet = spreadSheet.Worksheets.Entries[0];
             AtomLink listFeedLink = tempWorkSheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
             ListQuery listQuery = new ListQuery(listFeedLink.HRef.ToString());
-            ListFeed listFeed = SpreadSheetHelper.Service.Query(listQuery);
+            ListFeed listFeed = SpreadSheetHelper.Query(listQuery);
             var expenditureTypes = GetExpenditureTypes(listFeed);
 
             var users = new List<SelectListItem>
@@ -89,12 +91,12 @@ namespace EconomySheetUpdater.Models
             return worksheets;
         }
 
-        private static SpreadsheetEntry GetSpreadSheet(string uri)
+
+        public static SpreadSheetUpdateViewModel GetErrorModel()
         {
-            return
-                SpreadSheetHelper.Feed.Entries.SingleOrDefault(
-                    res => res.Id.AbsoluteUri.Equals(uri, StringComparison.InvariantCultureIgnoreCase)) as
-                SpreadsheetEntry;
+            var model = GetModel();
+            model.ErrorMessage = "wtf u done??";
+            return model;
         }
     }
 }

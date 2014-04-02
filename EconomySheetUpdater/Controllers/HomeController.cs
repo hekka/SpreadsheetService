@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Configuration;
 using System.Web.Mvc;
 using EconomySheetUpdater.Models;
 using Google.Apis.Auth.OAuth2.Mvc;
 using Google.Apis.Sample.MVC4;
-using Google.GData.Client;
-using Google.GData.Spreadsheets;
 
 namespace EconomySheetUpdater.Controllers
 {
@@ -22,35 +15,39 @@ namespace EconomySheetUpdater.Controllers
                                    AuthorizeAsync(cancellationToken);
 
             if (result.Credential != null)
-            {
-                if (SpreadSheetHelper.InitService(result.Credential.Token.AccessToken))
-                {
-                    var model = SpreadSheetUpdateViewModel.GetModel();
-                    return View(model);
-                }
-                return View();
+            { SpreadSheetHelper.AccessToken = result.Credential.Token.AccessToken;
+
+
+                var model = SpreadSheetUpdateViewModel.GetModel();
+                ViewBag.Title = "Pro Solutions";
+                return View(model);
             }
-            else
-            {
-                return new RedirectResult(result.RedirectUri);
-            }
+ 
+            return new RedirectResult(result.RedirectUri);
+            
         }
 
         [HttpPost]
         public ActionResult IndexAsync(SpreadSheetUpdateViewModel model)
         {
-            if (ModelState.IsValid)
+            
+            if (ModelState.IsValid
+                &&
+                SpreadSheetHelper.UpdateSpreadSheet(model.SelectedUser, model.SelectedWorksheetId,
+                                                         model.SelectedExpenditureType, model.SelectedAmount))
             {
-                SpreadSheetHelper.UpdateSpeadSheet(model.SelectedUser, model.SelectedWorksheetId,
-                    model.SelectedExpenditureType, model.SelectedAmount);
+                ModelState.Clear();
+                ViewBag.Title = "Success";
+                return View(SpreadSheetUpdateViewModel.GetModel());
             }
-            return View(SpreadSheetUpdateViewModel.GetModel());
+            ViewBag.Title = "Failed";
+            return View(SpreadSheetUpdateViewModel.GetErrorModel());
         }
 
         [HttpGet]
         public ActionResult Index()
         {
-            return null;
+            return View();
         }
     }
 }
