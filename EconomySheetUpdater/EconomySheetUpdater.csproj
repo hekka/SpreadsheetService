@@ -190,14 +190,18 @@
     <Compile Include="BootstrapSupport\ViewHelperExtensions.cs" />
     <Compile Include="Controllers\AuthCallbackControllerController.cs" />
     <Compile Include="Controllers\BootstrapBaseController.cs" />
+    <Compile Include="Controllers\StartPageController.cs" />
     <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OverviewController.cs" />
     <Compile Include="Controllers\WorksheetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Jobs\StartupJob.cs" />
     <Compile Include="Models\AppFlowMetadata.cs" />
     <Compile Include="Models\HomeInputModel.cs" />
+    <Compile Include="Models\OverviewModel.cs" />
     <Compile Include="Models\SpreadSheetHelper.cs" />
     <Compile Include="Models\SpreadSheetUpdateViewModel.cs" />
     <Compile Include="NavigationRoutes\INavigationRouteFilter.cs" />
@@ -328,6 +332,8 @@
     <Content Include="Views\Worksheet\Worksheet.cshtml">
       <BrowseToURL>~/Worksheet/Worksheet</BrowseToURL>
     </Content>
+    <Content Include="Views\Overview\Index.cshtml" />
+    <Content Include="Views\StartPage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

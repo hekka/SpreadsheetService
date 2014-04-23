@@ -9,13 +9,21 @@ namespace EconomySheetUpdater.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> IndexAsync(CancellationToken cancellationToken)
+        //
+        // GET: /Home/
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return new RedirectResult("Home/IndexAsync");
+        }
+
+        public async Task<ActionResult> IndexAsync()
         {
             var result = await new AuthorizationCodeMvcApp(this, new AppFlowMetadata()).
-                                   AuthorizeAsync(cancellationToken);
-
+                                   AuthorizeAsync(new CancellationToken(false));
             if (result.Credential != null)
-            { SpreadSheetHelper.AccessToken = result.Credential.Token.AccessToken;
+            { 
+                SpreadSheetHelper.setFactory(result.Credential.Token.AccessToken);
 
 
                 var model = SpreadSheetUpdateViewModel.GetModel();
@@ -44,10 +52,6 @@ namespace EconomySheetUpdater.Controllers
             return View(SpreadSheetUpdateViewModel.GetErrorModel());
         }
 
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+
     }
 }

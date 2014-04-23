@@ -29,7 +29,7 @@ namespace EconomySheetUpdater.Models
         public static SpreadSheetUpdateViewModel GetModel()
         {
             var spreadSheet = SpreadSheetHelper.GetSpreadSheet(WebConfigurationManager.AppSettings["SpreadsheetURI"]);
-            var worksheets = GetWorkSheets(spreadSheet);
+            var worksheets = SpreadSheetHelper.GetWorkSheets(spreadSheet);
 
             var tempWorkSheet = spreadSheet.Worksheets.Entries[0];
             AtomLink listFeedLink = tempWorkSheet.Links.FindService(GDataSpreadsheetsNameTable.ListRel, null);
@@ -76,20 +76,6 @@ namespace EconomySheetUpdater.Models
             return expenditureTypes;
         }
 
-        private static List<SelectListItem> GetWorkSheets(SpreadsheetEntry spreadSheet)
-        {
-            var indexValue = 0;
-            var worksheets = new List<SelectListItem>();
-            foreach (var worksheet in spreadSheet.Worksheets.Entries)
-            {
-                worksheets.Add(new SelectListItem
-                {
-                    Text = worksheet.Title.Text.ToString(),
-                    Value = (indexValue++).ToString()
-                });
-            }
-            return worksheets;
-        }
 
 
         public static SpreadSheetUpdateViewModel GetErrorModel()

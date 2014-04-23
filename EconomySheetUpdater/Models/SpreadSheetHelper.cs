@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web.Configuration;
+using System.Web.Mvc;
+using EconomySheetUpdater.Controllers;
+using Google.Apis.Auth.OAuth2.Mvc;
+using Google.Apis.Sample.MVC4;
 using Google.GData.Client;
 using Google.GData.Spreadsheets;
 
@@ -23,14 +29,13 @@ namespace EconomySheetUpdater.Models
                     try
                     {
                         _s = new SpreadsheetsService("Kirkegata37SSS");
-                        var parameters = new OAuth2Parameters {AccessToken = AccessToken};
-                        _s.RequestFactory = new GOAuth2RequestFactory(null, "Kirkegata37SSS", parameters);
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine("Failed during initialization of Google Services: " + e.Message);
                     }
                 }
+
                 return _s;
             }
         }
@@ -56,7 +61,14 @@ namespace EconomySheetUpdater.Models
             }
         }
 
-        public static string AccessToken { set; private get; }
+
+        //This needs to be called separately for each controller
+        public static void setFactory(string at)
+        {
+            _Service.RequestFactory = new GOAuth2RequestFactory(null, "Kirkegata37SSS", new OAuth2Parameters { AccessToken = at });
+        }
+
+        //public static string AccessToken { set; get; }
 
         #endregion
 
@@ -134,6 +146,36 @@ namespace EconomySheetUpdater.Models
             cell.InputValue = "=(B"+level+"-C"+level+")/2";
             cell.Update();
         }
+
+        public static double[] getColumn(WorksheetEntry ws, char col, int startrange, int stoprange)
+        {
+            CellFeed cf = Query(new CellQuery(ws.CellFeedLink));
+            var res = new double[stoprange-startrange+1];
+            for (int i = startrange, ind = 0; i <= stoprange; i++, ind++)
+            {
+                var cell = cf.Entries.SingleOrDefault(s => s.Title.Text == col + "" + i) as CellEntry;
+                if (cell != null)
+                {
+                    try
+                    {
+                        res[ind] = Double.Parse(cell.Value);
+
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                        Debug.WriteLine("i="+i);
+                        res[ind] = 0;
+                    }
+                }
+                else
+                {
+                    res[ind] = 0;
+                }
+            }
+            return res;
+        }
+
         private static int getCellLevel(string type)
         {
             switch (type)
@@ -150,5 +192,14 @@ namespace EconomySheetUpdater.Models
                     return -1;
             }
         }
+        public static List<SelectListItem> GetWorkSheets(SpreadsheetEntry spreadSheet)
+        {
+            var indexValue = 0;
+            return spreadSheet.Worksheets.Entries.Select(worksheet => new SelectListItem
+                {
+                    Text = worksheet.Title.Text.ToString(), Value = (indexValue++).ToString()
+                }).ToList();
+        }
+
     }
 }
