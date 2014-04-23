@@ -17,7 +17,7 @@
         <br />
 
         <label for="amountInput">Select your amount</label>
-        @Html.TextBoxFor(m => m.SelectedAmount, new { @id = "amountInput", required = "true" })
+        @Html.TextBoxFor(m => m.SelectedAmount, new { @id = "amountInput", required = "true", @type="number" })
         <span class="hidden">Something</span>
         <br/>
         <br/>
