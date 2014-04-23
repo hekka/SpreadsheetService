@@ -14,9 +14,9 @@ namespace EconomySheetUpdater.Models
     public class OverviewModel
     {
         public string Month { get; set; }
-        public double[] Henri;
-        public double[] Fredrik;
-        public double[] Delta;
+        public int[] Henri;
+        public int[] Fredrik;
+        public int[] Delta;
         public string WsId;
         public IEnumerable<SelectListItem> OtherWorksheets { get; set; }
 

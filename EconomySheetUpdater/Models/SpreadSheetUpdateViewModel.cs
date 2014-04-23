@@ -81,7 +81,7 @@ namespace EconomySheetUpdater.Models
         public static SpreadSheetUpdateViewModel GetErrorModel()
         {
             var model = GetModel();
-            model.ErrorMessage = "wtf u done??";
+            model.ErrorMessage = "Amount should be an Integer(no decimal values or text)";
             return model;
         }
     }
