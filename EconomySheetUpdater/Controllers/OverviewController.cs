@@ -21,7 +21,7 @@ namespace EconomySheetUpdater.Controllers
             return new RedirectResult("Index");
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int WsId = -1)
         {
             var result = await new AuthorizationCodeMvcApp(this, new AppFlowMetadata()).
            AuthorizeAsync(new CancellationToken(false));
@@ -30,8 +30,9 @@ namespace EconomySheetUpdater.Controllers
                 SpreadSheetHelper.setFactory(result.Credential.Token.AccessToken);
 
             }
-            return View(new OverviewModel().GetModel());
+            return View(new OverviewModel().GetModel(WsId));
         }
+
 
     }
 }
