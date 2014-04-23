@@ -158,7 +158,7 @@ namespace EconomySheetUpdater.Models
                 {
                     try
                     {
-                        var tmp = Decimal.Parse(cell.Value);
+                        var tmp = Double.Parse(cell.Value);
                         res[ind] = Convert.ToInt32(tmp); //round this shit
 
                     }
