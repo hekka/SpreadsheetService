@@ -29,17 +29,9 @@
         ;
     }
 }
-<script type="text/javascript">
-    $(function () {
-        $("#submitButton").click(function()
-        {   $("#insertForm").validate({
-                rules: {
-                    required: true
-                },
-                messages: {
-                  required: 'Please enter a value'  
-            }
-            });
-        });
-    });
-</script>
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/validaterules.js">
+    </script>
+}
