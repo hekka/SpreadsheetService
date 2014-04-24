@@ -147,10 +147,10 @@ namespace EconomySheetUpdater.Models
             cell.Update();
         }
 
-        public static int[] getColumn(WorksheetEntry ws, char col, int startrange, int stoprange)
+        public static string[] getColumn(WorksheetEntry ws, char col, int startrange, int stoprange)
         {
             CellFeed cf = Query(new CellQuery(ws.CellFeedLink));
-            var res = new int[stoprange-startrange+1];
+            var res = new string[stoprange-startrange+1];
             for (int i = startrange, ind = 0; i <= stoprange; i++, ind++)
             {
                 var cell = cf.Entries.SingleOrDefault(s => s.Title.Text == col + "" + i) as CellEntry;
@@ -158,18 +158,18 @@ namespace EconomySheetUpdater.Models
                 {
                     try
                     {
-                        res[ind] = Convert.ToInt32(cell.Value); 
+                        res[ind] = cell.Value; 
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine(e.Message);
                         Debug.WriteLine("i="+i);
-                        res[ind] = 0;
+                        res[ind] = "0";
                     }
                 }
                 else
                 {
-                    res[ind] = 0;
+                    res[ind] = "0";
                 }
             }
             return res;
