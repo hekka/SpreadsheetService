@@ -30,9 +30,16 @@ namespace EconomySheetUpdater.Controllers
                 SpreadSheetHelper.setFactory(result.Credential.Token.AccessToken);
 
             }
-            return View(new OverviewModel().GetModel(WsId));
+            var model = new OverviewModel().GetModel(WsId);
+            if (model.initfailed)
+            {
+                return RedirectToAction("Failed");
+            }
+            return View(model);
         }
-
-
+        public ActionResult Failed()
+        {
+            return View("../Failed/Index");
+        }
     }
 }

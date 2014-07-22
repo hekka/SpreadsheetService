@@ -1,0 +1,14 @@
+﻿@using EconomySheetUpdater.Models
+@model OverviewModel
+@{
+    var mod = new OverviewModel().GetModel(-1);
+    ViewBag.Title = "Failed";
+}
+
+<h2 class="red">Failed</h2>
+@using (@Html.BeginForm("Index", "Overview", FormMethod.Get, new { id = "ddForm" })){
+@Html.DropDownListFor(ws => ws.WsId, mod.OtherWorksheets, "This Month" ,new {id="ddWs",onchange="this.form.submit()"})
+}
+<p>
+    Something went wrong when fetching the spreadsheet. You can try to select a different month or try and fix the problem directly in the <a href="https://docs.google.com/spreadsheet/ccc?key=0AkyjIQHybNeidEhVOGY2WlBnSld2Y1JnaUdxeUcweEE&usp=sharing#gid=35">spreadsheet.</a>
+</p>

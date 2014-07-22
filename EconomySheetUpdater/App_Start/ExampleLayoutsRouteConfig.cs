@@ -11,9 +11,10 @@ namespace BootstrapMvcSample
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.MapNavigationRoute <StartPageController>("Start", c => c.Index());
+            //routes.MapNavigationRoute <StartPageController>("Start", c => c.Index());
             routes.MapNavigationRoute<HomeController>("Register Payment", c => c.Index());
             routes.MapNavigationRoute<OverviewController>("Overview", c => c.IndexHelper());
+            routes.MapNavigationRoute<WorksheetController>("Create new Month", c => c.WorksheetHelper());
             //routes.MapNavigationRoute<HomeController>("Register Payments", c => c.IndexAsync());
 
             //routes.MapNavigationRoute<ExampleLayoutsController>("Example Layouts", c => c.Starter())

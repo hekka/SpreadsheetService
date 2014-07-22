@@ -1,5 +1,19 @@
-﻿@{
+﻿@using Microsoft.Web.Mvc
+@model EconomySheetUpdater.Models.WorksheetModel
+
+@{
     ViewBag.Title = "Worksheet";
 }
 
-<h2>Worksheet</h2>
+<h2>Create New Month</h2>
+
+
+
+@using (Html.BeginForm("Worksheet", "Worksheet", FormMethod.Post, new {@id = "NewWs"}))
+{
+    @Html.TextBoxFor(m => m.NewTitle, new {@id = "NewTitleId", required = "true"})<br/>
+    @Html.SubmitButton("Submit", "Submit", new {@class = "btn-default  btn", @id = "submitButton"})<br/>
+    <p class="red">@Model.ErrorMessage</p>
+}
+@section Scripts
+{<script type="text/javascript" src="~/Scripts/validaterules.js"></script>}

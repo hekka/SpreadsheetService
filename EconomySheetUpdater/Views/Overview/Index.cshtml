@@ -6,12 +6,13 @@
 @using (@Html.BeginForm("Index", "Overview", FormMethod.Get, new { id = "ddForm" })){
 @Html.DropDownListFor(ws => ws.WsId, Model.OtherWorksheets, "This Month" ,new {id="ddWs",onchange="this.form.submit()"})
 }
+ 
 @{
     <div style="width: 100%;">
         <div style="float:left;">
             <h4 style="color:#6E6E6E">@Model.Month </h4>
-            Internet<br/>
             Electricty<br/>
+            Internet<br/>
             Food<br/>
             Misc<br/>
             <hr/>

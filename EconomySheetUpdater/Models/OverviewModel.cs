@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using System.Globalization;
-using System.Linq;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Xml.Linq;
-using Google.GData.Client;
 using Google.GData.Spreadsheets;
 
 namespace EconomySheetUpdater.Models
@@ -18,6 +14,7 @@ namespace EconomySheetUpdater.Models
         public string[] Fredrik;
         public string[] Delta;
         public string WsId;
+        public bool initfailed = false;
         public IEnumerable<SelectListItem> OtherWorksheets { get; set; }
 
         public OverviewModel GetModel(int id)
@@ -35,7 +32,14 @@ namespace EconomySheetUpdater.Models
                 OtherWorksheets = SpreadSheetHelper.GetWorkSheets(spreadSheet);
                 return this;
             }
-            throw new ModelValidationException();
+            return getErrorModel(spreadSheet);
+        }
+
+        private OverviewModel getErrorModel(SpreadsheetEntry spreadSheet)
+        {
+            OtherWorksheets = SpreadSheetHelper.GetWorkSheets(spreadSheet);
+            initfailed = true;
+            return this;
         }
 
         public OverviewModel GetModel()
@@ -62,7 +66,7 @@ namespace EconomySheetUpdater.Models
                 OtherWorksheets = SpreadSheetHelper.GetWorkSheets(spreadSheet);
                 return this;
             }
-            throw new ModelValidationException();
+            return getErrorModel(spreadSheet);
         }
     }
 }
